@@ -6,45 +6,45 @@
 
 }
 
-.me_container {
+.me__container {
     padding-top: 66px;
     display: flex;
     justify-content: space-between;
 }
 
-.me_info {
+.me__info {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     max-width: 46.875%;
 }
 
-.me_general {
+.me__general {
     display: flex;
     flex-direction: column;
 }
 
-.me_name {
+.me__name {
     padding-bottom: 18px;
     font-weight: 400;
     font-size: 50px;
     line-height: 58px;
 }
 
-.me_profession {
+.me__profession {
     padding-bottom: 26px;
     font-weight: 500;
     font-size: 14px;
     line-height: 22px;
 }
 
-.me_text {
+.me__text {
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
 }
 
-.me_github {
+.me__github {
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
@@ -52,7 +52,7 @@
     color: #FFFFFF;
 }
 
-.me_photo {
+.me__photo {
     width: 270px;
     height: 327px;
     background-image: url(/src/images/IMG_7994.jpg);
@@ -61,7 +61,7 @@
     background-repeat: no-repeat;
 }
 
-.me_title {
+.me__title {
     padding-bottom: 23px;
 
     border-bottom: #DADADA 1px solid;
@@ -72,7 +72,7 @@
 }
 
 @media screen and (max-width: 980px) {
-    .me_text {
+    .me__text {
         font-size: 12px;
         line-height: 18px;
     }
@@ -86,35 +86,35 @@
         padding-bottom: 90px;
     }
 
-    .me_name {
+    .me__name {
         padding-bottom: 16px;
         font-size: 40px;
         line-height: 40px;
     }
 
-    .me_profession {
+    .me__profession {
         padding-bottom: 20px;
         font-size: 12px;
         line-height: 18px;
     }
 
-    .me_photo {
+    .me__photo {
         width: 255px;
         height: 307px;
     }
 }
 
 @media screen and (max-width: 666px) {
-    .me_container {
+    .me__container {
         flex-direction: column-reverse;
         align-items: center;
     }
 
-    .me_name {
+    .me__name {
         padding-top: 40px;
     }
 
-    .me_info {
+    .me__info {
         max-width: 100%;
     }
 }
@@ -127,35 +127,35 @@
         padding-bottom: 70px;
     }
 
-    .me_title {
+    .me__title {
         padding-bottom: 28px;
         font-size: 18px;
         line-height: 22px;
     }
 
-    .me_name {
+    .me__name {
         padding-bottom: 20px;
         font-size: 30px;
         line-height: 36px;
     }
 
-    .me_text {
+    .me__text {
         padding-bottom: 40px;
     }
 
-    .me_photo {
+    .me__photo {
         width: 292px;
         height: 352px;
     }
 }
 
 @media screen and (max-width: 350px) {
-    .me_text {
+    .me__text {
         font-size: 11px;
         line-height: 16px;
     }
 
-    .me_profession {
+    .me__profession {
         font-size: 11px;
         line-height: 16px;
     }

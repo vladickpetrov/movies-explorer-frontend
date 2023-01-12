@@ -5,6 +5,7 @@
 
 body {
   font-family: Inter, Helvetica, Arial, sans-serif;
+  background: #202020;
 }
 
 @import url(./vendor/normalize.css);

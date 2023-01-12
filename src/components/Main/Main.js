@@ -6,6 +6,8 @@ import Portfolio from "./Portfolio/Protfolio";
 import Promo from "./Promo/Promo";
 import Techs from "./Techs/Techs";
 
+import "./Main.css";
+
 function Main() {
   return (
     <>

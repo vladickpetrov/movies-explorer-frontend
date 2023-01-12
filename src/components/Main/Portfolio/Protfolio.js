@@ -3,25 +3,40 @@ import "./Portfolio.css";
 function Portfolio() {
   return (
     <section className="portfolio">
-      <h2 className="portfolio_title">Потрфолио</h2>
-      <div className="portfolio_container">
-        <div className="portfolio_particle">
-          <a className="portfolio_link" href="#">
+      <h2 className="portfolio__title">Потрфолио</h2>
+      <div className="portfolio__container">
+        <div className="portfolio__particle">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="portfolio__link"
+            href="https://github.com/vladickpetrov/how-to-learn"
+          >
             Статичный сайт
           </a>
-          <span className="portfolio_arrow">&#8599;</span>
+          <span className="portfolio__arrow">&#8599;</span>
         </div>
-        <div className="portfolio_particle">
-          <a className="portfolio_link" href="#">
+        <div className="portfolio__particle">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="portfolio__link"
+            href="https://github.com/vladickpetrov/russian-travel"
+          >
             Адаптивный сайт
           </a>
-          <span className="portfolio_arrow">&#8599;</span>
+          <span className="portfolio__arrow">&#8599;</span>
         </div>
-        <div className="portfolio_particle">
-          <a className="portfolio_link" href="#">
+        <div className="portfolio__particle">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="portfolio__link"
+            href="https://github.com/vladickpetrov/react-mesto-api-full"
+          >
             Одностраничное приложение
           </a>
-          <span className="portfolio_arrow">&#8599;</span>
+          <span className="portfolio__arrow">&#8599;</span>
         </div>
       </div>
     </section>

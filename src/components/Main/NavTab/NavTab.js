@@ -1,14 +1,19 @@
+import { Link } from "react-router-dom";
 import "./NavTab.css";
 
 function NavTab() {
   return (
     <header className="nav">
-      <a className="nav_logo-link" href="#">
-        <div className="nav_logo"></div>
-      </a>
-      <div className="nav_buttons">
-        <button className="nav_signup clearbutton">Регистрация</button>
-        <button className="nav_signin clearbutton">Войти</button>
+      <Link className="nav__logo-link" to="/">
+        <div className="nav__logo"></div>
+      </Link>
+      <div className="nav__buttons">
+        <Link to="/signup">
+          <button className="nav__signup clearbutton">Регистрация</button>
+        </Link>
+        <Link to="/signin">
+          <button className="nav__signin clearbutton">Войти</button>
+        </Link>
       </div>
     </header>
   );
