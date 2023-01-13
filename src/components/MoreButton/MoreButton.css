@@ -1,0 +1,28 @@
+.more-button {
+    display: flex;
+    justify-content: center;
+}
+
+.more-button__button {
+    width: 320px;
+    height: 36px;
+    margin-top: 50px;
+    margin-bottom: 80px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: #424242 1px solid;
+    border-radius: 8px;
+    background: #202020;
+
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 410px) {
+    .more-button__button {
+        width: 240px;
+    }
+}

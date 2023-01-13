@@ -1,0 +1,133 @@
+.navigation {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transition: opacity 0.5s linear;
+}
+
+.navigation__background {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: opacity 0.5s linear;
+}
+
+.navigation__background_visible {
+    opacity: 1;
+}
+
+.navigation__main-window {
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    max-width: 520px;
+    height: 100vh;
+    background-color: #202020;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    transition: visibility 0.2s linear, width 0.2s linear, opacity 0.2s linear;
+}
+
+.navigation__main-window_visible {
+    visibility: visible;
+    opacity: 1;
+    width: 100%;
+}
+
+.navigation__menu {
+    padding-top: 159px;
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    gap: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navigation__link {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.navigation__link_active {
+    text-decoration: underline;
+}
+
+.navigation__close-button {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    background: url(../../../src/images/vectors/close.svg);
+    transform: rotate(-45deg);
+    width: 22px;
+    height: 22px;
+    background-size: contain;
+    transition: opacity 0.1s linear;
+}
+
+.navigation__close-button:hover {
+    cursor: pointer;
+    opacity: 70%;
+}
+
+.navigation__account {
+    color: #FFFFFF;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding-bottom: 92px;
+}
+
+.navigation__account-title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.navigation__account-image {
+    background-image: url(/src/images/vectors/profile-icon.svg);
+    width: 26px;
+    height: 30px;
+}
+
+@media screen and (max-width: 768px) {
+    .navigation {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .navigation__close-button {
+        top: 13px;
+        right: 13px;
+    }
+
+    .navigation__account {
+        padding-bottom: 48px;
+    }
+
+    .navigation__menu {
+        padding-top: 144px;
+        gap: 24px;
+    }
+}

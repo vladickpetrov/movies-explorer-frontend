@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  background: #202020;
+}
+
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/InterWeb/inter.css);
+
+.clearbutton {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  background-repeat: no-repeat;
+  padding: 0;
+}
