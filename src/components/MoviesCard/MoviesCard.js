@@ -6,13 +6,15 @@ function MoviesCard({ name, link, isLiked, isSaved }) {
       <img className="card__image" src={link} alt={name} />
       <div className="card__title-container">
         <h2 className="card__title">{name}</h2>
-        <div
+        <button
           className={
             isSaved
-              ? "card__button card__delete"
-              : `card__button card__like ${isLiked ? "card__like_active" : ""}`
+              ? "clearbutton card__button card__delete"
+              : `clearbutton card__button card__like ${
+                  isLiked ? "card__like_active" : ""
+                }`
           }
-        ></div>
+        ></button>
       </div>
       <span className="card__timer">1ч 42м</span>
     </li>

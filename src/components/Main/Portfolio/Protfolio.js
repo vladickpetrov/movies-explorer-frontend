@@ -4,8 +4,8 @@ function Portfolio() {
   return (
     <section className="portfolio">
       <h2 className="portfolio__title">Потрфолио</h2>
-      <div className="portfolio__container">
-        <div className="portfolio__particle">
+      <ul className="portfolio__container">
+        <li className="portfolio__particle">
           <a
             target="_blank"
             rel="noreferrer"
@@ -14,9 +14,16 @@ function Portfolio() {
           >
             Статичный сайт
           </a>
-          <span className="portfolio__arrow">&#8599;</span>
-        </div>
-        <div className="portfolio__particle">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="portfolio__link"
+            href="https://github.com/vladickpetrov/how-to-learn"
+          >
+            <span className="portfolio__arrow">&#8599;</span>
+          </a>
+        </li>
+        <li className="portfolio__particle">
           <a
             target="_blank"
             rel="noreferrer"
@@ -25,20 +32,34 @@ function Portfolio() {
           >
             Адаптивный сайт
           </a>
-          <span className="portfolio__arrow">&#8599;</span>
-        </div>
-        <div className="portfolio__particle">
           <a
             target="_blank"
             rel="noreferrer"
             className="portfolio__link"
-            href="https://github.com/vladickpetrov/react-mesto-api-full"
+            href="https://github.com/vladickpetrov/russian-travel/"
+          >
+            <span className="portfolio__arrow">&#8599;</span>
+          </a>
+        </li>
+        <li className="portfolio__particle">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="portfolio__link"
+            href="https://github.com/vladickpetrov/react-mesto-api-full/"
           >
             Одностраничное приложение
           </a>
-          <span className="portfolio__arrow">&#8599;</span>
-        </div>
-      </div>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="portfolio__link"
+            href="https://github.com/vladickpetrov/react-mesto-api-full/"
+          >
+            <span className="portfolio__arrow">&#8599;</span>
+          </a>
+        </li>
+      </ul>
     </section>
   );
 }
