@@ -1,8 +1,12 @@
 .card {
     width: 270px;
     height: 230px;
-    display: flex;
+    display: none;
     flex-direction: column;
+}
+
+.card:nth-child(-n + 12) {
+    display: flex;
 }
 
 .card__image {
@@ -17,9 +21,13 @@
 }
 
 .card__title {
+    max-width: 80%;
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card__button {
@@ -63,14 +71,33 @@
     color: #8B8B8B;
 }
 
+@media screen and (max-width: 990px) {
+    .card:nth-child(-n+12) {
+        display: none;
+    }
+
+    .card:nth-child(-n+8) {
+        display: flex;
+    }
+
+}
+
 @media screen and (max-width: 768px) {
     .card {
         width: 339px;
         height: 269px;
     }
 
+    .card:nth-child(-n+8) {
+        display: none;
+    }
+
     .card__image {
         height: 190px;
+    }
+
+    .card:nth-child(-n+5) {
+        display: flex;
     }
 }
 

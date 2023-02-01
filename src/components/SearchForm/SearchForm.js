@@ -1,6 +1,45 @@
+import movieApi from "../../utils/MoviesApi";
 import "./SearchForm.css";
 
-function SearchForm() {
+function SearchForm({
+  setMovies,
+  setIsPreloaderOpen,
+  setSearchResult,
+  setMovieName,
+  setIsShort,
+  isSaved,
+}) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!isSaved) {
+      setIsPreloaderOpen(true);
+
+      movieApi
+        .getMovies()
+        .then((res) => {
+          setMovies(res);
+          setSearchResult("Ничего не найдено");
+        })
+        .catch((err) => {
+          setSearchResult(
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          );
+          console.log(err);
+        })
+        .finally(() => {
+          setIsPreloaderOpen(false);
+        });
+    }
+  }
+
+  function handleTextChange(e) {
+    setMovieName(e.target.value);
+  }
+
+  function handleRadio(e) {
+    setIsShort(e.target.checked);
+  }
+
   return (
     <section className="search">
       <div className="search__container">
@@ -12,9 +51,13 @@ function SearchForm() {
               placeholder="Фильм"
               formNoValidate
               required
+              onChange={handleTextChange}
             />
           </div>
-          <button className="search__button clearbutton"></button>
+          <button
+            className="search__button clearbutton"
+            onClick={handleSubmit}
+          ></button>
         </form>
         <div className="search__divider"></div>
         <div className="search__radio-container">
@@ -24,6 +67,7 @@ function SearchForm() {
             id="short"
             name="short"
             value="yes"
+            onChange={handleRadio}
           />
           <label htmlFor="short"></label>
           <p className="search__radio-text">Короткометражки</p>

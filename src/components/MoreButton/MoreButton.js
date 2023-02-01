@@ -1,9 +1,14 @@
 import "./MoreButton.css";
 
-function MoreButton() {
+function MoreButton({ loadMorePictures }) {
   return (
     <div className="more-button">
-      <button className="more-button__button clearbutton">Ещё</button>
+      <button
+        className="more-button__button clearbutton"
+        onClick={loadMorePictures}
+      >
+        Ещё
+      </button>
     </div>
   );
 }
