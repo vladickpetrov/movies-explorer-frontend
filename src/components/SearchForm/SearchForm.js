@@ -8,17 +8,24 @@ function SearchForm({
   setMovieName,
   setIsShort,
   isSaved,
+  movieName,
+  isShort,
+  checkButton,
 }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!isSaved) {
       setIsPreloaderOpen(true);
 
+      localStorage.setItem("movieName", movieName);
+      localStorage.setItem("isShort", isShort);
+
       movieApi
         .getMovies()
         .then((res) => {
           setMovies(res);
           setSearchResult("Ничего не найдено");
+          checkButton();
         })
         .catch((err) => {
           setSearchResult(
@@ -51,6 +58,7 @@ function SearchForm({
               placeholder="Фильм"
               formNoValidate
               required
+              value={movieName || ""}
               onChange={handleTextChange}
             />
           </div>
@@ -67,6 +75,7 @@ function SearchForm({
             id="short"
             name="short"
             value="yes"
+            checked={isShort || false}
             onChange={handleRadio}
           />
           <label htmlFor="short"></label>

@@ -46,32 +46,39 @@ function Profile({ setLoggedIn, setCurrentUser, jwt, setIsPreloaderOpen }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsPreloaderOpen(true);
-    sendUserInfo(jwt, name, email)
-      .then((res) => {
-        setIsErrorOpen(true);
-        setErrorMessage("Данные успешно обновлены");
-        setCurrentUser(res);
-      })
-      .catch((err) => {
-        setIsErrorOpen(true);
-        setErrorMessage(err.statusText);
-        if (err.status === 409) {
-          setErrorMessage("Пользователь с таким E-mail уже существует");
-        }
-        if (err.status === 500) {
-          setErrorMessage(
-            "Упс... Что-то пошло не так. Попробуйте обновить страницу"
-          );
-        }
-      })
-      .finally(() => {
-        setIsPreloaderOpen(false);
-      });
+    if (currentUser.email !== email || currentUser.name !== name) {
+      setIsPreloaderOpen(true);
+      sendUserInfo(jwt, name, email)
+        .then((res) => {
+          setErrorMessage("Данные успешно обновлены");
+          setIsErrorOpen(true);
+          setCurrentUser(res);
+        })
+        .catch((err) => {
+          setIsErrorOpen(true);
+          setErrorMessage(err.statusText);
+          if (err.status === 409) {
+            setErrorMessage("Пользователь с таким E-mail уже существует");
+          }
+          if (err.status === 500) {
+            setErrorMessage(
+              "Упс... Что-то пошло не так. Попробуйте обновить страницу"
+            );
+          }
+        })
+        .finally(() => {
+          setIsPreloaderOpen(false);
+        });
+    } else {
+      setIsErrorOpen(true);
+      setErrorMessage("Необходимо изменить данные");
+    }
   }
 
   function handleQuit() {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("isShort");
+    localStorage.removeItem("movieName");
     setCurrentUser({});
     setLoggedIn(false);
     navigation("/main");
@@ -136,6 +143,7 @@ function Profile({ setLoggedIn, setCurrentUser, jwt, setIsPreloaderOpen }) {
               type="email"
               className="profile__input"
               name="email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               required
               maxLength="30"
               minLength="2"

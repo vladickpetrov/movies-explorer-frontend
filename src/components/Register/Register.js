@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { register } from "../../utils/auth";
+import { login, register } from "../../utils/auth";
 import "./Register.css";
 
-function Register({ setIsPreloaderOpen }) {
+function Register({ handleLogIn, setIsPreloaderOpen, navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -43,6 +43,28 @@ function Register({ setIsPreloaderOpen }) {
     e.preventDefault();
     setIsPreloaderOpen(true);
     register(name, email, password)
+      .then(() => {
+        login(email, password)
+          .then((data) => {
+            if (data.token) {
+              const jwt = data.token;
+              localStorage.setItem("jwt", jwt);
+              return data;
+            }
+          })
+          .then((res) => {
+            handleLogIn();
+            navigation("/movies");
+          })
+          .catch((err) => {
+            setIsErrorOpen(true);
+            setErrorMessage("Что-то пошло не так... Попробуйте войти позже");
+            console.log(err);
+          })
+          .finally(() => {
+            setIsPreloaderOpen(false);
+          });
+      })
       .catch((err) => {
         setIsErrorOpen(true);
         setErrorMessage(
@@ -50,6 +72,7 @@ function Register({ setIsPreloaderOpen }) {
         );
         console.log(err);
       })
+
       .finally(() => {
         setIsPreloaderOpen(false);
       });
@@ -73,7 +96,7 @@ function Register({ setIsPreloaderOpen }) {
 
   return (
     <main className="register">
-      <Link className="register__logo-link" to="/">
+      <Link className="register__logo-link" to="/main">
         <div className="register__logo"></div>
       </Link>
       <h1 className="register__title">Добро пожаловать!</h1>
@@ -102,6 +125,7 @@ function Register({ setIsPreloaderOpen }) {
             className="register__input"
             name="email"
             type="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             maxLength="30"
             minLength="2"
             required

@@ -46,7 +46,7 @@ function Login({ handleLogIn, navigation, setIsPreloaderOpen }) {
       })
       .then((res) => {
         handleLogIn();
-        navigation("/main");
+        navigation("/movies");
       })
       .catch((err) => {
         setIsErrorOpen(true);
@@ -76,7 +76,7 @@ function Login({ handleLogIn, navigation, setIsPreloaderOpen }) {
 
   return (
     <main className="login">
-      <Link className="login__logo-link" to="/">
+      <Link className="login__logo-link" to="/main">
         <div className="login__logo"></div>
       </Link>
       <h1 className="login__title">Рады видеть!</h1>
@@ -93,6 +93,7 @@ function Login({ handleLogIn, navigation, setIsPreloaderOpen }) {
             type="email"
             className="login__input"
             name="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             required
             maxLength="30"
             minLength="2"

@@ -40,6 +40,7 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
+            navigation("/main");
           }
         })
         .catch((err) => {
@@ -52,10 +53,11 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Preloader isPreloaderOpen={isPreloaderOpen} />
+
         <Routes>
-          <Route path="*" element={<ProtectedRoute loggedIn={loggedIn} />}>
+          <Route path="/" element={<ProtectedRoute loggedIn={loggedIn} />}>
             <Route
-              path="*"
+              path="/*"
               element={
                 <Slay
                   setCurrentUser={setCurrentUser}
@@ -79,20 +81,18 @@ function App() {
 
           <Route
             path="/signup"
-            element={<Register setIsPreloaderOpen={setIsPreloaderOpen} />}
+            element={
+              <Register
+                handleLogIn={handleLogIn}
+                setIsPreloaderOpen={setIsPreloaderOpen}
+                navigation={navigation}
+              />
+            }
           ></Route>
 
           <Route path="/main" element={<Main loggedIn={loggedIn} />}></Route>
 
-          <Route
-            exact
-            path="/"
-            element={
-              loggedIn ? <Navigate to="/movies" /> : <Navigate to="/main" />
-            }
-          ></Route>
-
-          <Route path="/*" element={<NotFound />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </div>
     </CurrentUserContext.Provider>

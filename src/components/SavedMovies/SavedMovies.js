@@ -8,17 +8,6 @@ function SavedMovies({ setIsPreloaderOpen, userMovies, jwt, setUserMovies }) {
   const [isShort, setIsShort] = useState(false);
   const [movieName, setMovieName] = useState("");
 
-  useEffect(() => {
-    if (userMovies.length !== 0) {
-      let cards = document.querySelectorAll(".card");
-      for (let i = 0; i <= cards.length; i++) {
-        if (cards[i]) {
-          cards[i].style.display = "flex";
-        }
-      }
-    }
-  }, [userMovies]);
-
   function filterResults(list) {
     return isShort
       ? list.filter((item) => {
@@ -43,6 +32,8 @@ function SavedMovies({ setIsPreloaderOpen, userMovies, jwt, setUserMovies }) {
         setMovieName={setMovieName}
         setIsShort={setIsShort}
         isSaved={true}
+        movieName={movieName}
+        isShort={isShort}
       />
       <MoviesCardList>
         {filterResults(userMovies).length === 0

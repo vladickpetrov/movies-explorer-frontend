@@ -42,13 +42,12 @@
 }
 
 .card__delete {
-    opacity: 0;
     background-image: url(/src/images/vectors/crest.svg);
     transition: opacity 0.1s linear;
 }
 
 .card__delete:hover {
-    opacity: 1;
+    opacity: 0.6;
 }
 
 .card__like {

@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { deleteMovie, sendMovie } from "../../utils/MainApi";
 import "./MoviesCard.css";
 
-function MoviesCard({ card, isSaved, jwt, userMovies }) {
+function MoviesCard({ card, isSaved, jwt, userMovies, setUserMovies }) {
   const movieLink = isSaved
     ? card.image
     : `https://api.nomoreparties.co${card.image.url}`;
+
   const thumbnailLink = isSaved
     ? `https://api.nomoreparties.co${card.thumbnail}`
     : `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`;
@@ -18,6 +19,10 @@ function MoviesCard({ card, isSaved, jwt, userMovies }) {
     if (userMovies.find((i) => i.movieId === card.id)?.movieId === card.id) {
       setIsLiked(true);
     }
+
+    if (isSaved) {
+      setCardStyle({ display: "flex" });
+    }
   }, []);
 
   function handleLike() {
@@ -29,6 +34,7 @@ function MoviesCard({ card, isSaved, jwt, userMovies }) {
       )
         .then(() => {
           setIsLiked(false);
+          setUserMovies(userMovies.filter((a) => a.movieId !== card.id));
         })
         .catch((err) => {
           console.log(err);
@@ -50,6 +56,7 @@ function MoviesCard({ card, isSaved, jwt, userMovies }) {
       })
         .then((res) => {
           setCardId(res._id);
+          setUserMovies((userMovies) => [...userMovies, res]);
         })
         .catch((err) => {
           console.log(err);
@@ -69,7 +76,11 @@ function MoviesCard({ card, isSaved, jwt, userMovies }) {
 
   return (
     <li className="card" style={cardStyle}>
-      <a href={card.trailerLink} target="_blank" rel="noreferrer">
+      <a
+        href={isSaved ? card.trailer : card.trailerLink}
+        target="_blank"
+        rel="noreferrer"
+      >
         <img className="card__image" src={movieLink} alt={card.nameRU} />
       </a>
       <div className="card__title-container">

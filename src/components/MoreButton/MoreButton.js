@@ -1,8 +1,8 @@
 import "./MoreButton.css";
 
-function MoreButton({ loadMorePictures }) {
+function MoreButton({ loadMorePictures, buttonIsShowed }) {
   return (
-    <div className="more-button">
+    <div className={buttonIsShowed ? "more-button" : "more-button_hidden"}>
       <button
         className="more-button__button clearbutton"
         onClick={loadMorePictures}

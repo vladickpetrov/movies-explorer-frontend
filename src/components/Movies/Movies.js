@@ -6,11 +6,12 @@ import MoreButton from "../MoreButton/MoreButton";
 import { useEffect, useState } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function Movies({ setIsPreloaderOpen, jwt, userMovies }) {
+function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
   const [movies, setMovies] = useState([]);
   const [isShort, setIsShort] = useState(false);
   const [searchResult, setSearchResult] = useState("");
   const [movieName, setMovieName] = useState("");
+  const [buttonIsShowed, setButtonIsShowed] = useState(true);
 
   let width = window.innerWidth;
 
@@ -22,6 +23,8 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies }) {
     setSearchResult(
       "Чтобы увидеть результат, введите в строку поиска название фильма"
     );
+    setMovieName(localStorage.getItem("movieName"));
+    setIsShort(!!localStorage.getItem("isShort"));
   }, []);
 
   function filterResults(list) {
@@ -64,12 +67,10 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies }) {
   function checkButton() {
     let cards = document.querySelectorAll(".card");
 
-    const button = document.querySelector(".more-button");
-
     if (cards && currentItem >= cards.length) {
-      button.style.display = "none";
+      setButtonIsShowed(false);
     } else if (cards && currentItem < cards.length) {
-      button.style.display = "flex";
+      setButtonIsShowed(true);
     }
   }
 
@@ -83,28 +84,37 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies }) {
         setMovieName={setMovieName}
         setIsShort={setIsShort}
         loadMorePictures={loadMorePictures}
+        movieName={movieName}
+        isShort={isShort}
+        checkButton={checkButton}
       />
       {filterResults(movies).length === 0 ? (
         <p className="list__name">{searchResult}</p>
       ) : (
-        <MoviesCardList>
-          {filterResults(movies).length === 0
-            ? ""
-            : filterResults(movies).map((item) => {
-                return (
-                  <MoviesCard
-                    key={item.id}
-                    card={item}
-                    isSaved={false}
-                    isLikedAlready={true}
-                    jwt={jwt}
-                    userMovies={userMovies}
-                  />
-                );
-              })}
-        </MoviesCardList>
+        <>
+          <MoviesCardList>
+            {filterResults(movies).length === 0
+              ? ""
+              : filterResults(movies).map((item) => {
+                  return (
+                    <MoviesCard
+                      key={item.id}
+                      card={item}
+                      isSaved={false}
+                      isLikedAlready={true}
+                      jwt={jwt}
+                      userMovies={userMovies}
+                      setUserMovies={setUserMovies}
+                    />
+                  );
+                })}
+          </MoviesCardList>
+          <MoreButton
+            loadMorePictures={loadMorePictures}
+            buttonIsShowed={buttonIsShowed}
+          />
+        </>
       )}
-      <MoreButton loadMorePictures={loadMorePictures} />
       <Footer></Footer>
     </>
   );
