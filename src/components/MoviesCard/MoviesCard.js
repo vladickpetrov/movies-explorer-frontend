@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { deleteMovie, sendMovie } from "../../utils/MainApi";
 import "./MoviesCard.css";
 
-function MoviesCard({ card, isSaved, jwt, userMovies, setUserMovies }) {
+function MoviesCard({
+  card,
+  isSaved,
+  jwt,
+  userMovies,
+  setUserMovies,
+  checkButton,
+}) {
   const movieLink = isSaved
     ? card.image
     : `https://api.nomoreparties.co${card.image.url}`;
@@ -23,6 +30,7 @@ function MoviesCard({ card, isSaved, jwt, userMovies, setUserMovies }) {
     if (isSaved) {
       setCardStyle({ display: "flex" });
     }
+    checkButton();
   }, []);
 
   function handleLike() {

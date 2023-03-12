@@ -13,12 +13,6 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
   const [movieName, setMovieName] = useState("");
   const [buttonIsShowed, setButtonIsShowed] = useState(true);
 
-  let width = window.innerWidth;
-
-  window.addEventListener("resize", () => {
-    width = window.innerWidth;
-  });
-
   let button = useRef();
 
   useEffect(() => {
@@ -28,8 +22,62 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
 
     setMovieName(localStorage.getItem("movieName"));
     setIsShort(localStorage.getItem("isShort") === "true");
-    button.current.click();
+    if (localStorage.getItem("movieName")) {
+      button.current.click();
+    }
   }, []);
+
+  useEffect(() => {
+    showVisibleCards();
+  }, [movies, movieName]);
+
+  let width = window.innerWidth;
+
+  let currentItem = width > 990 ? 12 : width > 768 ? 8 : 5;
+
+  function loadMorePictures() {
+    let cards = document.querySelectorAll(".card");
+
+    if (cards.length > currentItem) {
+      for (
+        let i = 0;
+        i < currentItem + (width > 1279 ? 4 : width > 990 ? 3 : 2);
+        i++
+      ) {
+        if (cards.length - currentItem === 2) {
+          cards[cards.length - 1].style.display = "flex";
+          cards[cards.length - 2].style.display = "flex";
+        } else if (cards.length - currentItem === 1) {
+          cards[cards.length - 1].style.display = "flex";
+        } else {
+          cards[i].style.display = "flex";
+        }
+      }
+      currentItem += width > 1279 ? 4 : width > 990 ? 3 : 2;
+    }
+    checkButton();
+  }
+
+  function showVisibleCards() {
+    let initialVisibleCards = width > 990 ? 12 : width > 768 ? 8 : 5;
+
+    const cards = document.querySelectorAll(".card");
+
+    if (cards && cards.length !== 0) {
+      for (let i = 0; i < cards.length; i++) {
+        cards[i].style.display = "none";
+      }
+      if (cards.length >= initialVisibleCards) {
+        for (let i = 0; i < initialVisibleCards; i++) {
+          cards[i].style.display = "flex";
+        }
+      } else {
+        for (let i = 0; i < cards.length; i++) {
+          cards[i].style.display = "flex";
+        }
+      }
+    }
+  }
 
   function filterResults(list) {
     return isShort
@@ -48,26 +96,6 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
         });
   }
 
-  let currentItem = width > 990 ? 12 : width > 768 ? 8 : 5;
-
-  function loadMorePictures() {
-    let cards = document.querySelectorAll(".card");
-
-    checkButton();
-
-    if (cards.length > currentItem) {
-      for (
-        let i = currentItem;
-        i < currentItem + (width > 1279 ? 4 : width > 990 ? 3 : 2);
-        i++
-      ) {
-        cards[i].style.display = "flex";
-      }
-      currentItem += width > 1279 ? 4 : width > 990 ? 3 : 2;
-      checkButton();
-    }
-  }
-
   function checkButton() {
     let cards = document.querySelectorAll(".card");
 
@@ -77,6 +105,11 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
       setButtonIsShowed(true);
     }
   }
+
+  window.addEventListener("resize", () => {
+    width = window.innerWidth;
+    showVisibleCards();
+  });
 
   return (
     <>
@@ -89,10 +122,11 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
         loadMorePictures={loadMorePictures}
         movieName={movieName}
         isShort={isShort}
-        checkButton={checkButton}
         button={button}
+        checkButton={checkButton}
+        showVisibleCards={showVisibleCards}
       />
-      {filterResults(movies).length === 0 ? (
+      {filterResults(movies)?.length === 0 ? (
         <p className="list__name">{searchResult}</p>
       ) : (
         <>
@@ -109,6 +143,7 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
                       jwt={jwt}
                       userMovies={userMovies}
                       setUserMovies={setUserMovies}
+                      checkButton={checkButton}
                     />
                   );
                 })}

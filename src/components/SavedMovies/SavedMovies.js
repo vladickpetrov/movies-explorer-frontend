@@ -1,7 +1,7 @@
 import Footer from "../Footer/Footer";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function SavedMovies({ setIsPreloaderOpen, userMovies, jwt, setUserMovies }) {

@@ -11,8 +11,9 @@ function SearchForm({
   isSaved,
   movieName,
   isShort,
-  checkButton,
   button,
+  showVisibleCards,
+  checkButton,
 }) {
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,7 +25,6 @@ function SearchForm({
         .then((res) => {
           setMovies(res);
           setSearchResult("Ничего не найдено");
-          checkButton();
         })
         .catch((err) => {
           setSearchResult(
@@ -40,6 +40,8 @@ function SearchForm({
 
   function handleTextChange(e) {
     setMovieName(e.target.value);
+    showVisibleCards();
+    checkButton();
     if (!isSaved) {
       localStorage.setItem("movieName", e.target.value);
     }
@@ -47,6 +49,8 @@ function SearchForm({
 
   function handleRadio(e) {
     setIsShort(e.target.checked);
+    showVisibleCards();
+    checkButton();
     if (!isSaved) {
       localStorage.setItem("isShort", e.target.checked);
     }
