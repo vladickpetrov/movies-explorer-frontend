@@ -46,6 +46,7 @@ function SavedMovies({ setIsPreloaderOpen, userMovies, jwt, setUserMovies }) {
                   isSaved={true}
                   jwt={jwt}
                   userMovies={userMovies}
+                  setUserMovies={setUserMovies}
                 />
               );
             })}

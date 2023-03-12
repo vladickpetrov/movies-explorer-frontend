@@ -44,7 +44,8 @@ function Slay({ setCurrentUser, setLoggedIn, setIsPreloaderOpen }) {
       ></Navigation>
       <Routes>
         <Route
-          exact path="/movies"
+          exact
+          path="/movies"
           element={
             <Movies
               setIsPreloaderOpen={setIsPreloaderOpen}
@@ -56,7 +57,8 @@ function Slay({ setCurrentUser, setLoggedIn, setIsPreloaderOpen }) {
         />
 
         <Route
-          exact path="/profile"
+          exact
+          path="/profile"
           element={
             <Profile
               setLoggedIn={setLoggedIn}
@@ -68,12 +70,14 @@ function Slay({ setCurrentUser, setLoggedIn, setIsPreloaderOpen }) {
         />
 
         <Route
-          exact path="/saved-movies"
+          exact
+          path="/saved-movies"
           element={
             <SavedMovies
               setIsPreloaderOpen={setIsPreloaderOpen}
               jwt={jwt}
               userMovies={userMovies}
+              setUserMovies={setUserMovies}
             />
           }
         />

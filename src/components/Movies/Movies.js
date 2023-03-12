@@ -78,7 +78,6 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
     <>
       <SearchForm
         setMovies={setMovies}
-        movies={movies}
         setIsPreloaderOpen={setIsPreloaderOpen}
         setSearchResult={setSearchResult}
         setMovieName={setMovieName}

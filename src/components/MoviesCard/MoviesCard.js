@@ -67,6 +67,7 @@ function MoviesCard({ card, isSaved, jwt, userMovies, setUserMovies }) {
   function handleDelete() {
     deleteMovie(jwt, card._id)
       .then(() => {
+        setUserMovies(userMovies.filter((a) => a.movieId !== card.movieId));
         setCardStyle({ display: "none" });
       })
       .catch((err) => {
