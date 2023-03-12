@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import movieApi from "../../utils/MoviesApi";
 import "./SearchForm.css";
 
@@ -11,14 +12,12 @@ function SearchForm({
   movieName,
   isShort,
   checkButton,
+  button,
 }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!isSaved) {
       setIsPreloaderOpen(true);
-
-      localStorage.setItem("movieName", movieName);
-      localStorage.setItem("isShort", isShort);
 
       movieApi
         .getMovies()
@@ -41,10 +40,16 @@ function SearchForm({
 
   function handleTextChange(e) {
     setMovieName(e.target.value);
+    if (!isSaved) {
+      localStorage.setItem("movieName", e.target.value);
+    }
   }
 
   function handleRadio(e) {
     setIsShort(e.target.checked);
+    if (!isSaved) {
+      localStorage.setItem("isShort", e.target.checked);
+    }
   }
 
   return (
@@ -64,6 +69,7 @@ function SearchForm({
           </div>
           <button
             className="search__button clearbutton"
+            ref={button}
             onClick={handleSubmit}
           ></button>
         </form>

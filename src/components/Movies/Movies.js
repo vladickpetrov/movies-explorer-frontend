@@ -3,7 +3,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import "./Movies.css";
 import MoreButton from "../MoreButton/MoreButton";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
@@ -19,12 +19,16 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
     width = window.innerWidth;
   });
 
+  let button = useRef();
+
   useEffect(() => {
     setSearchResult(
       "Чтобы увидеть результат, введите в строку поиска название фильма"
     );
+
     setMovieName(localStorage.getItem("movieName"));
-    setIsShort(!!localStorage.getItem("isShort"));
+    setIsShort(localStorage.getItem("isShort") === "true");
+    button.current.click();
   }, []);
 
   function filterResults(list) {
@@ -86,6 +90,7 @@ function Movies({ setIsPreloaderOpen, jwt, userMovies, setUserMovies }) {
         movieName={movieName}
         isShort={isShort}
         checkButton={checkButton}
+        button={button}
       />
       {filterResults(movies).length === 0 ? (
         <p className="list__name">{searchResult}</p>
