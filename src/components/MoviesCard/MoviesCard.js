@@ -30,7 +30,9 @@ function MoviesCard({
     if (isSaved) {
       setCardStyle({ display: "flex" });
     }
-    checkButton();
+    if (!isSaved) {
+      checkButton();
+    }
   }, []);
 
   function handleLike() {

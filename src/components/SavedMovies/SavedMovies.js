@@ -4,7 +4,13 @@ import SearchForm from "../SearchForm/SearchForm";
 import { useState } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function SavedMovies({ setIsPreloaderOpen, userMovies, jwt, setUserMovies }) {
+function SavedMovies({
+  setIsPreloaderOpen,
+  userMovies,
+  jwt,
+  setUserMovies,
+  checkButton,
+}) {
   const [isShort, setIsShort] = useState(false);
   const [movieName, setMovieName] = useState("");
 
@@ -47,6 +53,7 @@ function SavedMovies({ setIsPreloaderOpen, userMovies, jwt, setUserMovies }) {
                   jwt={jwt}
                   userMovies={userMovies}
                   setUserMovies={setUserMovies}
+                  checkButton={checkButton}
                 />
               );
             })}
