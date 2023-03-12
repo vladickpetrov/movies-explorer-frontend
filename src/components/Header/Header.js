@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-function Header() {
+function Header({ handleMenuOpen }) {
   return (
     <header className="header">
-      <Link className="header__logo-link" to="/">
+      <Link className="header__logo-link" to="/main">
         <div className="header__logo"></div>
       </Link>
       <div className="header__buttons">
@@ -19,7 +19,10 @@ function Header() {
         <p className="header__account-title">Аккаунт</p>
         <div className="header__account-image"></div>
       </Link>
-      <button className="header__menu-button clearbutton"></button>
+      <button
+        className="header__menu-button clearbutton"
+        onClick={handleMenuOpen}
+      ></button>
     </header>
   );
 }
