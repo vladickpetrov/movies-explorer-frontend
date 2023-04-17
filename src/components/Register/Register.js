@@ -1,14 +1,112 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { login, register } from "../../utils/auth";
 import "./Register.css";
 
-function Register() {
+function Register({ handleLogIn, setIsPreloaderOpen, navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [isErrorOpen, setIsErrorOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isButtonActive, setIsButtonActive] = useState(false);
+
+  function handleEmailChange(e) {
+    const email = e.target.value;
+    setEmail(email);
+  }
+
+  function checkValidity(e) {
+    if (!e.target.validity.valid) {
+      setIsButtonActive(false);
+      e.target.classList.add("register__input_error");
+      setErrorMessage(e.target.validationMessage);
+      setIsErrorOpen(true);
+    } else {
+      setErrorMessage("");
+      e.target.classList.remove("register__input_error");
+      setIsErrorOpen(false);
+    }
+  }
+
+  function handleNameChange(e) {
+    const name = e.target.value;
+    setName(name);
+  }
+
+  function handlePasswordChange(e) {
+    const password = e.target.value;
+    setPassword(password);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setIsPreloaderOpen(true);
+    register(name, email, password)
+      .then(() => {
+        login(email, password)
+          .then((data) => {
+            if (data.token) {
+              const jwt = data.token;
+              localStorage.setItem("jwt", jwt);
+              return data;
+            }
+          })
+          .then((res) => {
+            handleLogIn();
+            navigation("/movies");
+          })
+          .catch((err) => {
+            setIsErrorOpen(true);
+            setErrorMessage("Что-то пошло не так... Попробуйте войти позже");
+            console.log(err);
+          })
+          .finally(() => {
+            setIsPreloaderOpen(false);
+          });
+      })
+      .catch((err) => {
+        setIsErrorOpen(true);
+        setErrorMessage(
+          "Что-то пошло не так... Попробуйте зарегистрироваться позже"
+        );
+        console.log(err);
+      })
+
+      .finally(() => {
+        setIsPreloaderOpen(false);
+      });
+  }
+
+  function handleFormChange(e) {
+    checkValidity(e);
+
+    const inputList = Array.from(
+      e.target.form.querySelectorAll(".register__input")
+    );
+
+    const validInputList = inputList.filter((input) => {
+      return input.validity.valid;
+    });
+
+    if (inputList.length === validInputList.length) {
+      setIsButtonActive(true);
+    }
+  }
+
   return (
     <main className="register">
-      <Link className="register__logo-link" to="/">
+      <Link className="register__logo-link" to="/main">
         <div className="register__logo"></div>
       </Link>
       <h1 className="register__title">Добро пожаловать!</h1>
-      <form className="register__form">
+      <form
+        className="register__form"
+        autoComplete="off"
+        action=""
+        onSubmit={handleSubmit}
+        onChange={handleFormChange}
+      >
         <div className="register__input-container">
           <label className="register__label">Имя</label>
           <input
@@ -17,6 +115,8 @@ function Register() {
             className="register__input"
             name="name"
             required
+            value={name || ""}
+            onChange={handleNameChange}
           />
         </div>
         <div className="register__input-container">
@@ -25,7 +125,12 @@ function Register() {
             className="register__input"
             name="email"
             type="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            maxLength="30"
+            minLength="2"
             required
+            value={email || ""}
+            onChange={handleEmailChange}
           />
         </div>
         <div className="register__input-container">
@@ -33,16 +138,27 @@ function Register() {
           <input
             maxLength="30"
             minLength="2"
-            className="register__input register__input_error"
+            className="register__input"
             type="password"
             name="password"
             required
+            value={password || ""}
+            onChange={handlePasswordChange}
           />
         </div>
-        <span className="register__error register__error_visible">
-          Что-то пошло не так...
+        <span
+          className={`register__error ${
+            isErrorOpen ? "register__error_visible" : ""
+          }`}
+        >
+          {errorMessage}
         </span>
-        <button className="register__button clearbutton">
+        <button
+          className={`register__button clearbutton ${
+            isButtonActive ? "" : "register__button_inactive"
+          }`}
+          disabled={!isButtonActive}
+        >
           Зарегистрироваться
         </button>
         <p className="register__text">

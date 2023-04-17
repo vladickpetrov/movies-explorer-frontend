@@ -1,7 +1,7 @@
 .card {
     width: 270px;
     height: 230px;
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
@@ -17,9 +17,13 @@
 }
 
 .card__title {
+    max-width: 80%;
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card__button {
@@ -34,13 +38,12 @@
 }
 
 .card__delete {
-    opacity: 0;
     background-image: url(/src/images/vectors/crest.svg);
     transition: opacity 0.1s linear;
 }
 
 .card__delete:hover {
-    opacity: 1;
+    opacity: 0.6;
 }
 
 .card__like {

@@ -7,12 +7,26 @@ import Promo from "./Promo/Promo";
 import Techs from "./Techs/Techs";
 
 import "./Main.css";
+import Header from "../Header/Header";
+import Navigation from "../Navigation/Navigation";
+import { useState } from "react";
 
-function Main() {
+function Main({ loggedIn }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleMenuOpen() {
+    setIsOpen(true);
+  }
+
+  function handleMenuClose() {
+    setIsOpen(false);
+  }
+
   return (
     <>
-      <NavTab></NavTab>
+      {loggedIn ? <Header handleMenuOpen={handleMenuOpen} /> : <NavTab />}
       <main>
+        <Navigation isOpen={isOpen} handleMenuClose={handleMenuClose} />
         <Promo></Promo>
         <AboutProject></AboutProject>
         <Techs></Techs>
